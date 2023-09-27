@@ -1,10 +1,13 @@
-fun main() {
-  val result = calc("4+3*2-5")
-  println(result)
+import atomictest.*
+
+fun calc(expr: String): Any {
+    return 2.2
 }
 
-fun calc(expr: String): Int {
-    return 2
+fun main() {
+  calc("4+3*2-5") eq 5
+  calc("4^3*2-5") eq 123
+  calc("4*3+5*6") eq 42
 }
 
 /**
