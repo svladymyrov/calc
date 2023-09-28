@@ -1,10 +1,13 @@
 import atomictest.*
+import kotlin.collections.ArrayDeque
 
 fun calc(expr: String): Any {
     return 2.2
 }
 
 fun main() {
+//  val numStack = ArrayDeque<Int>()
+//  val opStack = ArrayDeque<Char>()
   calc("4+3*2-5") eq 5
   calc("4^3*2-5") eq 123
   calc("4*3+5*6") eq 42
@@ -23,6 +26,52 @@ if: expr size 0
     repeat until op stack is empty
 
  * */
+
+/*
+* DRAFT SOLUTION IN JS
+*
+function calc(expr) {
+  const opPriority = {
+    '-': 4,
+    '+': 4,
+    '*': 3,
+    '/': 3,
+    '^': 2,
+  }
+  const numStack = []
+  const opStack = []
+
+  for (let i = expr.length - 1; i >= 0; i--) {
+    const token = expr[i];
+    const isOp = !!opPriority[token]
+
+    if (isOp) {
+      const [prevOp] = opStack
+
+      if (!opStack.length || opPriority[token] < opPriority[prevOp]) {
+        opStack.unshift(token)
+        continue
+      }
+
+      const a = numStack.shift()
+      const b = numStack.shift()
+      numStack.unshift([a, b, opStack.shift()])
+      opStack.unshift(token)
+    } else {
+     numStack.unshift(token)
+    }
+  }
+
+  for (const op of opStack) {
+    const a = numStack.shift()
+    const b = numStack.shift()
+    numStack.unshift([a, b, op])
+  }
+
+  console.dir(numStack[0], { depth: null });
+  return numStack[0]
+}
+* */
 
 /**
  *
